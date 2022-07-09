@@ -1,0 +1,8 @@
+# Custom
+.DS_Store
+
+# Build
+build/
+
+# Dependency directories
+node_modules/
