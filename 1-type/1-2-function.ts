@@ -29,5 +29,8 @@ printMessage();
 
 //Rest parameter
 function addNumbers(...numbers: number[]): number {
+  console.log(numbers);
   return numbers.reduce((a, b) => a + b);
 }
+
+addNumbers(1, 2);
