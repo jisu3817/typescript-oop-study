@@ -4,10 +4,14 @@
     hasMilk: boolean;
   };
 
+  interface CoffeeMaker {
+    makeCoffee(shots: number): CoffeeCup;
+  }
+
   // public (default)
   // private
   // protected
-  class CoffeeMaker {
+  class CoffeeMachine implements CoffeeMaker {
     // private 키워드를 이용하면 외부에서 내부 상태를 직접적으로 변경할 수 없음. (외부에서 보여지지도 않음.)
     private static BEANS_GRAMM_PER_SHOT: number = 7;
     protected coffeeBeans: number = 0;
@@ -16,12 +20,12 @@
       this.coffeeBeans = coffeeBeans;
     }
 
-    static makeMachine(coffeeBeans: number): CoffeeMaker {
-      return new CoffeeMaker(coffeeBeans);
+    static makeMachine(coffeeBeans: number): CoffeeMachine {
+      return new CoffeeMachine(coffeeBeans);
     }
 
     private grindBeans(shots: number) {
-      if (this.coffeeBeans < shots * CoffeeMaker.BEANS_GRAMM_PER_SHOT) {
+      if (this.coffeeBeans < shots * CoffeeMachine.BEANS_GRAMM_PER_SHOT) {
         throw new Error('Not enough coffee beans!');
       }
     }
@@ -60,6 +64,14 @@
    * 이러한 것을 추상화라고 하며 외부에 드러날 필요가 없는 메서드는 앞에 private을 붙여주면 외부에서 접근할 수 없게 된다.
    */
 
-  const coffeeMaker = CoffeeMaker.makeMachine(32);
-  coffeeMaker.makeCoffee(2);
+  const maker: CoffeeMachine = CoffeeMachine.makeMachine(32);
+  maker.makeCoffee(2);
+
+  const maker2: CoffeeMaker = CoffeeMachine.makeMachine(32);
+  maker2.makeCoffee(2);
+  /* CoffeMachine의 오브젝트를 생성할 때 타입은 CoffeMachine도 가능하고 CoffeeMaker도 가능하다.
+   * 하지만 CoffeeMaker의 경우 인스터를 생성해줄 때 makeCoffee만 정의 해주었기 때문에 해당 메서드만 접근이 가능하다.
+   * 이러한 것을 추상화라고 한다.
+   * maker2.fillCoffeeBeans(32)에는 접근할 수 없음.
+   */
 }
