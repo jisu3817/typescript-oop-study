@@ -8,6 +8,12 @@
     makeCoffee(shots: number): CoffeeCup;
   }
 
+  interface CommercialCoffeeMaker {
+    makeCoffee(shots: number): CoffeeCup;
+    fillCoffeeBeans(beans: number): void;
+    clean(): void;
+  }
+
   // public (default)
   // private
   // protected
@@ -48,6 +54,10 @@
       return this.extract(shots);
     }
 
+    clean(): void {
+      console.log('cleaning the coffee machine...');
+    }
+
     fillCoffeeBeans(beans: number) {
       if (beans < 0)
         throw new Error('value for beans should be greater than 0');
@@ -57,6 +67,25 @@
     }
   }
 
+  class AmateurUser {
+    constructor(private machine: CoffeeMaker) {}
+
+    makeCoffee() {
+      const machine = this.machine.makeCoffee(2);
+      console.log(machine);
+    }
+  }
+
+  class ProBarista {
+    constructor(private machine: CommercialCoffeeMaker) {}
+
+    makeCoffee() {
+      const machine = this.machine.makeCoffee(2);
+      this.machine.fillCoffeeBeans(64);
+      this.machine.clean();
+      console.log(machine);
+    }
+  }
   /*
    * CoffeeMaker를 이용해 커피를 만들고자 한다면 makeCoffee를 실행해야 한다.
    * 클래스 외부에서는 this.grindBenas, preheat, extract 등의 존재 여부, 동작 원리를 알지 못하더라도
@@ -69,9 +98,15 @@
 
   const maker2: CoffeeMaker = CoffeeMachine.makeMachine(32);
   maker2.makeCoffee(2);
+  // maker2.clean(); => CoffeeMaker 타입을 상요하고 있기 때문에 clean()메서드는 사용할 수 없음.
   /* CoffeMachine의 오브젝트를 생성할 때 타입은 CoffeMachine도 가능하고 CoffeeMaker도 가능하다.
    * 하지만 CoffeeMaker의 경우 인스터를 생성해줄 때 makeCoffee만 정의 해주었기 때문에 해당 메서드만 접근이 가능하다.
    * 이러한 것을 추상화라고 한다.
    * maker2.fillCoffeeBeans(32)에는 접근할 수 없음.
    */
+
+  const coffeeMaker: CommercialCoffeeMaker = CoffeeMachine.makeMachine(32);
+  coffeeMaker.makeCoffee(3);
+  coffeeMaker.fillCoffeeBeans(30);
+  coffeeMaker.clean();
 }
