@@ -65,7 +65,7 @@
     private steamMilk() {
       console.log('milk in steam ... 🥛');
     }
-    makeLatte(shots: number) {
+    makeCoffee(shots: number) {
       const coffee = super.makeCoffee(shots);
       this.steamMilk();
 
@@ -77,7 +77,7 @@
   }
 
   const latteMachine = new LatteMachine(32);
-  const latte = latteMachine.makeLatte(2);
+  const latte = latteMachine.makeCoffee(2);
 
   console.log(latte);
 }
