@@ -104,3 +104,47 @@ composition은 의존성 주입을 통해 필요한 기능을 재사용할 수 �
 하지만 의존성 주입의 가장 치명적인 단점은 주입된 클래스만을 사용해야 하며 스스로를 제약시키는 방식이다. <br>
 또한 다른 종류의 클래스를 만든다면 기존의 클래스를 모두 수정해줘야 한다. <br>
 이처럼 클래스 간의 사이를 관계짓는 것은 좋지 않다.
+
+### decoupling된 의존성 주입
+
+```tsx
+class SeoulMilkMaker() {}
+
+class CafeLatteMachine() {
+  milkFrother: SeoulMilkMaker;
+  constructor(coffeeBeans: number, milkFrother: SeoulMilkMaker) {
+    this.coffeeBeans = coffeeBeans;
+    this.milkFrother = milkFrother;
+  }
+}
+
+const cafeLatteMachine = new CafeLatteMachie(32, new SeoulMilkMaker)
+```
+
+카페라떼 머신이 있다고 해보자. 위 코드대로 라면 '서울우유'만을 이용해서만 카페라떼를 만들 수 있다. <br>
+한 가지 종류의 우유만 사용할 수 있다면? 재사용성이 굉장히 떨어진 coupling된 클래스가 만들어 진다. <Br>
+이와 같은 의존성 주입의 치명적인 단점을 보완하기 위해서 <b>강력한 인터페이스</b>를 활용할 수 있다.
+
+```tsx
+interface MilkMaker {
+  makeMilk();
+}
+class SeoulMilkMaker implements MilkMaker {}
+class MailMilkMaker implements MilkMaker {}
+
+class CafeLatteMachine() {
+  milkFrother: MilkMaker;
+  constructor(coffeeBeans: number, milkFrother: MilkMaker) {
+    this.coffeeBeans = coffeeBeans;
+    this.milkFrother = milkFrother;
+  }
+}
+
+const seoulCafeLatteMachine = new CafeLatteMachie(32, new SeoulMilkMaker());
+const mailCafeLatteMachine = new CafeLatteMachine(32, new MailMilkMaker())
+```
+
+MilkMaker에 대한 인터페이스를 생성하여 카페라떼 머신이 이 인터페이스를 주입받을 수 있도록 만들어 주었다. <br>
+이로써 MilkMaker 인터페이스를 활용하면 makeMilk()메서드만 구현해낸다면 어떤 종류의 milkMaker든 상관없이 <br>
+카페라떼머신 클래스를 구현할 수 있다. 우유의 종류가 바뀔 때마다 새로운 커피머신 클래스를 생성할 필요가 없어진 것이다. <br>
+이처럼 인터페이스를 활용하면 decoupling된 재사용성 높은 코드를 유지할 수 있다.
