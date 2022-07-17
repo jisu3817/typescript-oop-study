@@ -94,8 +94,11 @@ class LatteMachine extends CoffeeMachine {
 
 이러한 상속의 단점이 있어 상속보다는 <b>composition</b>의 사용을 지향한다. <br>
 composition은 의존성 주입을 통해 필요한 기능을 재사용할 수 있다는 장점이 있다.
-![상속](https://user-images.githubusercontent.com/79014269/179396745-ba05b6c4-01e1-45f3-b6fb-6929ec834fb4.jpeg)
-![composition](https://user-images.githubusercontent.com/79014269/179396767-d6e6b6a9-1607-492b-818c-1a06bcc0a48a.jpeg)
+
+- 상속 <br>
+  <img src="https://user-images.githubusercontent.com/79014269/179396745-ba05b6c4-01e1-45f3-b6fb-6929ec834fb4.jpeg" width="400" height="500"/>
+- 의존성 주입(composition)
+  <img src="https://user-images.githubusercontent.com/79014269/179396767-d6e6b6a9-1607-492b-818c-1a06bcc0a48a.jpeg" width="400" height="500"/>
 
 하지만 의존성 주입의 가장 치명적인 단점은 주입된 클래스만을 사용해야 하며 스스로를 제약시키는 방식이다. <br>
 또한 다른 종류의 클래스를 만든다면 기존의 클래스를 모두 수정해줘야 한다. <br>
