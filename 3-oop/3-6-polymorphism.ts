@@ -1,3 +1,5 @@
+import { timeStamp } from 'console';
+
 {
   type CoffeeCup = {
     shots: number;
@@ -113,18 +115,48 @@
     }
   }
 
+  class SweetCafeLatteMachine extends CoffeeMachine {
+    milkFrother: CheapSteamer;
+    sugar: AutomaticSugarMixer;
+    constructor(
+      coffeeBeans: number,
+      milkFrother: CheapSteamer,
+      sugar: AutomaticSugarMixer
+    ) {
+      super(coffeeBeans);
+      this.milkFrother = milkFrother;
+      this.sugar = sugar;
+    }
+
+    makeCoffee(shots: number): CoffeeCup {
+      const coffee = super.makeCoffee(shots);
+      const addMilk = this.milkFrother.makeMilk(coffee);
+      return this.sugar.addSugar(addMilk);
+    }
+  }
+
   const latteMachine = new LatteMachine(32, new CheapSteamer());
   const latte = latteMachine.makeCoffee(2);
+
+  console.log(latte);
 
   const sweetCoffeeMachine = new SweetCoffeeMachine(
     32,
     new AutomaticSugarMixer()
   );
-
   const sweetCoffee = sweetCoffeeMachine.makeCoffee(2);
 
-  console.log(latte);
   console.log(sweetCoffee);
+
+  const sweetCafeLatteMachine = new SweetCafeLatteMachine(
+    32,
+    new CheapSteamer(),
+    new AutomaticSugarMixer()
+  );
+
+  const sweetCafeLatte = sweetCafeLatteMachine.makeCoffee(2);
+
+  console.log(sweetCafeLatte);
 
   // const machines: CoffeeMaker[] = [
   //   new CoffeeMachine(32),
