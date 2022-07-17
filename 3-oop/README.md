@@ -97,8 +97,8 @@ composition은 의존성 주입을 통해 필요한 기능을 재사용할 수 �
 
 - 상속 <br>
   <img src="https://user-images.githubusercontent.com/79014269/179396745-ba05b6c4-01e1-45f3-b6fb-6929ec834fb4.jpeg" width="400" height="500"/>
-  <br>
-- 의존성 주입(composition)
+
+- 의존성 주입(composition) <br>
   <img src="https://user-images.githubusercontent.com/79014269/179396767-d6e6b6a9-1607-492b-818c-1a06bcc0a48a.jpeg" width="400" height="500"/>
 
 하지만 의존성 주입의 가장 치명적인 단점은 주입된 클래스만을 사용해야 하며 스스로를 제약시키는 방식이다. <br>
