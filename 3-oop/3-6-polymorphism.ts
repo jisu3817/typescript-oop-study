@@ -78,8 +78,13 @@
   }
 
   class SweetCoffeeMachine extends CoffeeMachine {
+    private addSugar() {
+      console.log('add some sugar...');
+    }
+
     makeCoffee(shots: number): CoffeeCup {
       const coffee = super.makeCoffee(2);
+      this.addSugar();
 
       return {
         ...coffee,
